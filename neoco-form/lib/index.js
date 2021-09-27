@@ -7,6 +7,7 @@ var tinymceReact = require('@tinymce/tinymce-react');
 var ImageUploader = require('@neoco/neoco-image-uploader');
 var luxon = require('luxon');
 
+
 function _interopDefaultLegacy(e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
@@ -253,7 +254,9 @@ var getMultiSelectProps = function getMultiSelectProps(_ref2) {
     }
   };
 };
+var idDestino;
 var getSingleSelectProps = function getSingleSelectProps(_ref3) {
+  // console.log('_ref3', _ref3);
   var field = _ref3.field,
     state = _ref3.state,
     handleChange = _ref3.handleChange;
@@ -279,6 +282,10 @@ var getSingleSelectProps = function getSingleSelectProps(_ref3) {
     value: value,
     options: options,
     onChange: function onChange(item) {
+      if (_ref3.field.accion)
+        idDestino = item.id;
+      // console.log('idDestino', idDestino);
+
       return handleChange({
         target: {
           name: field.name || field.property,
@@ -593,6 +600,84 @@ var inputMapper = function inputMapper(_ref) {
         }, _props2));
       }
 
+    case "fusion":
+      {
+        return /*#__PURE__*/React__default['default'].createElement(bluejayUi.Button, {
+          style: { backgroundColor: 'red' },
+          onClick: async function onClick(e) {
+            // console.log('idDestino', idDestino);
+            var idOrigen = state.data.id;
+            // console.log('idOrigen', idOrigen);
+
+            if (idDestino && idOrigen) {
+              const loginRequest = (credentials) =>
+                request(`login`, {
+                  method: "POST",
+                  body: JSON.stringify({
+                    email: credentials.email,
+                    pass: credentials.password,
+                  }),
+                }).then((res) => {
+                  if (res?.user) {
+                    return Promise.resolve(res);
+                  }
+                });
+
+              const request = (url, options) =>
+                fetch(`${process.env.REACT_APP_API_URL}${url}`, {
+                  ...options,
+                  headers: getHeaders(options?.headers),
+                }).then((res) => {
+                  switch (res.status) {
+                    case 200:
+                      return res.json();
+                    case 403:
+                      localStorage.removeItem("token");
+                      localStorage.setItem("isLoggedIn", false);
+                      localStorage.setItem("user", {});
+                      window.location = "/";
+                      return;
+                    default:
+                      return res
+                        .json()
+                        .then((error) => Promise.reject({ status: res.status, error }));
+                  }
+                });
+
+
+              const getHeaders = (headers) => {
+                const nextHeaders = {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                  ...headers,
+                };
+
+                return Object.keys(nextHeaders)
+                  .filter((key) => typeof nextHeaders[key] !== "undefined")
+                  .reduce((reducer, key) => ({ ...reducer, [key]: nextHeaders[key] }), {});
+              };
+
+              alert('Se van a fusionar las etiquetas');
+              await loginRequest({ email: "vitar@ticrevolution.com", password: "sweetadmin" }).then(x => {
+                request(`admin/tag/unificarTag?idOrigen=${idOrigen}&idDestino=${idDestino}`,
+                  {
+                    method: "POST",
+                    headers:
+                    {
+                      "Content-Type": "application/json",
+                      Accept: "application/json",
+                      Authorization: `Bearer ${x.token}`,
+                    },
+                    // body: JSON.stringify({ idOrigen: idOrigen.toString(), idDestino: idDestino.toString() }),
+                  }).then(x => console.log(x));
+
+              });
+            }
+          }
+        }, "Fusionar etiquetas");
+      }
+
     case "seo":
       {
         function stripHtml(html) {
@@ -629,7 +714,7 @@ var inputMapper = function inputMapper(_ref) {
         if (puntuacion <= 5) semaforo = "red";
         if (puntuacion > 5 && puntuacion < 8) semaforo = "yellow";
         if (puntuacion >= 8) semaforo = "green";
-        
+
         return React__default['default'].createElement(React__default['default'].Fragment, null,
           React.createElement(bluejayUi.Label, null, "Puntuación SEO: " + puntuacion),
           React.createElement("div", {
@@ -662,7 +747,132 @@ var inputMapper = function inputMapper(_ref) {
 
     case "html":
       {
+        const loginRequest = (credentials) =>
+          request(`login`, {
+            method: "POST",
+            body: JSON.stringify({
+              email: credentials.email,
+              pass: credentials.password,
+            }),
+          }).then((res) => {
+            if (res?.user) {
+              return Promise.resolve(res);
+            }
+          });
+
+        const request = (url, options) =>
+          fetch(`${process.env.REACT_APP_API_URL}${url}`, {
+            ...options,
+            headers: getHeaders(options?.headers),
+          }).then((res) => {
+            switch (res.status) {
+              case 200:
+                return res.json();
+              case 403:
+                localStorage.removeItem("token");
+                localStorage.setItem("isLoggedIn", false);
+                localStorage.setItem("user", {});
+                window.location = "/";
+                return;
+              default:
+                return res
+                  .json()
+                  .then((error) => Promise.reject({ status: res.status, error }));
+            }
+          });
+
+
+        const getHeaders = (headers) => {
+          const nextHeaders = {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            ...headers,
+          };
+
+          return Object.keys(nextHeaders)
+            .filter((key) => typeof nextHeaders[key] !== "undefined")
+            .reduce((reducer, key) => ({ ...reducer, [key]: nextHeaders[key] }), {});
+        };
+
         var _field$controlProps;
+
+        var imageFilePicker = async function (callback, value, meta) {
+          var imagenes;
+          await loginRequest({ email: "vitar@ticrevolution.com", password: "sweetadmin" }).then(x => {
+            request(`admin/medialibrary/all`,
+              {
+                method: "GET",
+                headers:
+                {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                  Authorization: `Bearer ${x.token}`,
+                }
+              }).then(x => {
+                imagenes = x.data;
+
+                const groupBy = key => array => array.reduce((objectsByKeyValue, obj) => {
+                  const value = obj[key];
+                  objectsByKeyValue[value] = (objectsByKeyValue[value] || []).concat(obj);
+                  return objectsByKeyValue;
+                }, {});
+
+                const groupByCategory = groupBy('category');
+                const imagenesTab = groupByCategory(imagenes);
+                var tabs = [];
+
+                Object.keys(imagenesTab).forEach(x => {
+                  var items = [];
+                  imagenes.filter(img => img.category == x).forEach(item => {
+                    items.push(
+                      {
+                        type: 'htmlpanel',
+                        html: `<img src="${process.env.REACT_APP_API_URL}/image/${item.url}" style="height:150px; margin-top:20px" alt="Imagen"/>`,
+                      },
+                      {
+                        type: 'checkbox',
+                        name: item.url ? item.url : item.id.toString(),
+                        label: item.name,
+                      });
+                  });
+                  tabs.push(
+                    {
+                      name: x,
+                      title: x,
+                      items: items
+                    }
+                  );
+                });
+
+                tinymce.activeEditor.windowManager.open({
+                  title: 'Galería de medios',
+                  size: 'medium',
+                  body: {
+                    type: 'tabpanel',
+                    tabs: tabs,
+                  },
+                  buttons: [
+                    {
+                      type: 'cancel',
+                      text: 'Cerrar',
+                      onclick: 'close'
+                    },
+                    {
+                      type: 'submit',
+                      text: 'Seleccionar',
+                      primary: true,
+                    },
+                  ],
+                  onSubmit: function (api) {
+                    var data = api.getData();
+                    callback(process.env.REACT_APP_API_URL + '/image/' + Object.keys(data)[Object.values(data).indexOf(true)]);
+                    tinymce.activeEditor.windowManager.close();
+                  }
+                });
+              });
+          });
+        };
 
         var value = typeof field.value === "function" ? field.value({
           field: field,
@@ -697,7 +907,11 @@ var inputMapper = function inputMapper(_ref) {
             toolbar_mode: "sliding",
             content_style: ".mymention{ color: gray; }",
             contextmenu: "link image imagetools table configurepermanentpen",
-            a11y_advanced_options: true
+            a11y_advanced_options: true,
+            image_advtab: true,
+            file_picker_callback: function (callback, value, meta) {
+              imageFilePicker(callback, value, meta);
+            },
           }, (_field$controlProps = field.controlProps) === null || _field$controlProps === void 0 ? void 0 : _field$controlProps.init),
           value: value,
           onEditorChange: function onEditorChange(content) {
