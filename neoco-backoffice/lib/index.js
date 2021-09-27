@@ -7,7 +7,7 @@ var reactRouterDom = require('react-router-dom');
 var styled = require('styled-components');
 var bluejayUi = require('bluejay-ui');
 var reactI18next = require('react-i18next');
-var Form$1 = require('@neoco/neoco-form');
+var Form$1 = require('neoco/neoco-form');
 var alertify = require("alertifyjs");
 
 function _interopDefaultLegacy(e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }

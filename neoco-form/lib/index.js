@@ -4,7 +4,7 @@ var React = require('react');
 var bluejayUi = require('bluejay-ui');
 var styled = require('styled-components');
 var tinymceReact = require('@tinymce/tinymce-react');
-var ImageUploader = require('@neoco/neoco-image-uploader');
+var ImageUploader = require('neoco/neoco-image-uploader');
 var luxon = require('luxon');
 
 
@@ -618,7 +618,7 @@ var inputMapper = function inputMapper(_ref) {
                     pass: credentials.password,
                   }),
                 }).then((res) => {
-                  if (res?.user) {
+                  if (res.user) {
                     return Promise.resolve(res);
                   }
                 });
@@ -626,7 +626,7 @@ var inputMapper = function inputMapper(_ref) {
               const request = (url, options) =>
                 fetch(`${process.env.REACT_APP_API_URL}${url}`, {
                   ...options,
-                  headers: getHeaders(options?.headers),
+                  headers: getHeaders(options.headers),
                 }).then((res) => {
                   switch (res.status) {
                     case 200:
@@ -692,21 +692,21 @@ var inputMapper = function inputMapper(_ref) {
         var img = 0;
         var href = 0;
         var mismoDominio = 0;
-        try { h1 = state.data.content?.match(/<h1>/g || []).length; } catch { }
-        try { h2 = state.data.content?.match(/<h2>/g || []).length; } catch { }
-        try { img = state.data.content?.match(/<img/g || []).length; } catch { }
-        try { href = state.data.content?.match(/href=/g || []).length; } catch { }
-        try { mismoDominio = state.data.content?.match(/href="https:\/\/www.sweetpress.com\//g || []).length; } catch { }
+        try { h1 = state.data.content.match(/<h1>/g || []).length; } catch { }
+        try { h2 = state.data.content.match(/<h2>/g || []).length; } catch { }
+        try { img = state.data.content.match(/<img/g || []).length; } catch { }
+        try { href = state.data.content.match(/href=/g || []).length; } catch { }
+        try { mismoDominio = state.data.content.match(/href="https:\/\/www.sweetpress.com\//g || []).length; } catch { }
         try { charContenido = stripHtml(state.data.content).length; } catch { }
 
         var puntuacion = 0;
-        if (state.data.titleSeo?.length > 67) puntuacion++;
-        if (state.data.descriptioSeo?.length > 157) puntuacion++;
+        if (state.data.titleSeo != undefined) if (state.data.titleSeo.length > 67) puntuacion++;
+        if (state.data.descriptioSeo != undefined) if (state.data.descriptioSeo.length > 157) puntuacion++;
         if (h1 > 0) puntuacion++;
         if (h2 > 0) puntuacion++;
         if (charContenido > 601) puntuacion += 2;
         if (img > 0) puntuacion++;
-        if (state.data.gallery) puntuacion++;
+        if (state.data.descriptioSeo != undefined) if (state.data.gallery) puntuacion++;
         if (mismoDominio > 0) puntuacion++;
         if ((href - mismoDominio) > 0) puntuacion++;
 
@@ -732,8 +732,8 @@ var inputMapper = function inputMapper(_ref) {
             rows: 9,
             disabled: "disabled",
             value:
-              (state.data.titleSeo ? `Título SEO: ${state.data.titleSeo?.length} caracteres \n` : "Título SEO: 0 caracteres \n") +
-              (state.data.descriptioSeo ? `Descripción SEO: ${state.data.descriptioSeo?.length} caracteres \n` : "Descripción SEO: 0 caracteres \n") +
+              (state.data.titleSeo ? `Título SEO: ${state.data.titleSeo.length} caracteres \n` : "Título SEO: 0 caracteres \n") +
+              (state.data.descriptioSeo ? `Descripción SEO: ${state.data.descriptioSeo.length} caracteres \n` : "Descripción SEO: 0 caracteres \n") +
               (state.data.content ? `Cantidad de H1: ${h1} ocurrencias \n` : "Cantidad de H1: 0 ocurrencias \n") +
               (state.data.content ? `Cantidad de H2: ${h2} ocurrencias \n` : "Cantidad de H2: 0 ocurrencias \n") +
               (state.data.content ? `Longitud contenido: ${charContenido} caracteres \n` : "Longitud contenido: 0 caracteres \n") +
@@ -755,7 +755,7 @@ var inputMapper = function inputMapper(_ref) {
               pass: credentials.password,
             }),
           }).then((res) => {
-            if (res?.user) {
+            if (res.user) {
               return Promise.resolve(res);
             }
           });
@@ -763,7 +763,7 @@ var inputMapper = function inputMapper(_ref) {
         const request = (url, options) =>
           fetch(`${process.env.REACT_APP_API_URL}${url}`, {
             ...options,
-            headers: getHeaders(options?.headers),
+            headers: getHeaders(options.headers),
           }).then((res) => {
             switch (res.status) {
               case 200:
