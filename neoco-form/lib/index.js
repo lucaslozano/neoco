@@ -471,6 +471,31 @@ var inputMapper = function inputMapper(_ref) {
           name: state.data[field.property]
         }),
         label: field.label
+      }));
+
+    case "image2":
+      var data = format({
+        state: state,
+        field: field
+      });
+
+      return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement(ImageUploader__default['default'], {
+        onChange: function onChange(data) {
+          fieldHandleChange({
+            target: {
+              name: field.name || field.property,
+              value: data
+            }
+          });
+        },
+        source: _objectSpread2(_objectSpread2({}, typeof data === "string" && {
+          uri: data,
+          name: state.data[field.property]
+        }), _typeof(data) === "object" && {
+          file: data,
+          name: state.data[field.property]
+        }),
+        label: field.label
       }), (field.id) ?
       /*#__PURE__*/React__default['default'].createElement('div', { style: { textAlign: 'center' } },
       /*#__PURE__*/React__default['default'].createElement(bluejayUi.Label,
