@@ -6,6 +6,7 @@ var styled = require('styled-components');
 var tinymceReact = require('@tinymce/tinymce-react');
 var ImageUploader = require('neoco/neoco-image-uploader');
 var luxon = require('luxon');
+const alertify = require('alertifyjs');
 
 
 function _interopDefaultLegacy(e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -256,7 +257,6 @@ var getMultiSelectProps = function getMultiSelectProps(_ref2) {
 };
 var idDestino;
 var getSingleSelectProps = function getSingleSelectProps(_ref3) {
-  // console.log('_ref3', _ref3);
   var field = _ref3.field,
     state = _ref3.state,
     handleChange = _ref3.handleChange;
@@ -453,7 +453,8 @@ var inputMapper = function inputMapper(_ref) {
         state: state,
         field: field
       });
-      return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement(bluejayUi.Label, null, field.label), /*#__PURE__*/React__default['default'].createElement(ImageUploader__default['default'], {
+
+      return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement(ImageUploader__default['default'], {
         onChange: function onChange(data) {
           fieldHandleChange({
             target: {
@@ -470,7 +471,91 @@ var inputMapper = function inputMapper(_ref) {
           name: state.data[field.property]
         }),
         label: field.label
-      }));
+      }), (field.id) ?
+      /*#__PURE__*/React__default['default'].createElement('div', { style: { textAlign: 'center' } },
+      /*#__PURE__*/React__default['default'].createElement(bluejayUi.Label,
+        {
+          style: { width: '100%', fontSize: '16px' },
+          id: `footer${field.id}`,
+          color: 'primary',
+        },
+        (field.id && field.footer) ? field.footer.toString() : ""
+      ),
+            /*#__PURE__*/React__default['default'].createElement(bluejayUi.Button,
+        {
+          style: { width: '100%', marginTop: '15px' },
+          color: 'primary',
+          onClick: async function onClick(e) {
+            const resultado = prompt("Introduzca el nuevo pie de foto");
+            field.footer = resultado;
+            document.getElementById(`footer${field.id}`).innerHTML = resultado;
+            e.preventDefault();
+
+            const loginRequest = (credentials) =>
+              request(`login`, {
+                method: "POST",
+                body: JSON.stringify({
+                  email: credentials.email,
+                  pass: credentials.password,
+                }),
+              }).then((res) => {
+                if (res.user) {
+                  return Promise.resolve(res);
+                }
+              });
+
+            const request = (url, options) =>
+              fetch(`${process.env.REACT_APP_API_URL}${url}`, {
+                ...options,
+                headers: getHeaders(options.headers),
+              }).then((res) => {
+                switch (res.status) {
+                  case 200:
+                    return res.json();
+                  case 403:
+                    localStorage.removeItem("token");
+                    localStorage.setItem("isLoggedIn", false);
+                    localStorage.setItem("user", {});
+                    window.location = "/";
+                    return;
+                  default:
+                    return res
+                      .json()
+                      .then((error) => Promise.reject({ status: res.status, error }));
+                }
+              });
+
+
+            const getHeaders = (headers) => {
+              const nextHeaders = {
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+                ...headers,
+              };
+
+              return Object.keys(nextHeaders)
+                .filter((key) => typeof nextHeaders[key] !== "undefined")
+                .reduce((reducer, key) => ({ ...reducer, [key]: nextHeaders[key] }), {});
+            };
+
+            await loginRequest({ email: "vitar@ticrevolution.com", password: "sweetadmin" }).then(x => {
+              request(`admin/image/${field.id}`,
+                {
+                  method: "PUT",
+                  headers:
+                  {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                    Authorization: `Bearer ${x.token}`,
+                  },
+                  body: JSON.stringify({ id: field.id, name: field.nombre, url: field.nombre, footer: resultado }),
+                }).then(x => { if (x.code == 202) alertify.notify('El pie se ha actualizado correctamente', 'success'); else alertify.notify('Se ha producido un error al actualizar el pie', 'warning'); });
+
+            });
+          }
+        }, 'Actualizar pie de foto')
+      ) : null);
 
     case "file":
     case "file-pdf":
@@ -874,6 +959,9 @@ var inputMapper = function inputMapper(_ref) {
           });
         };
 
+
+
+
         var value = typeof field.value === "function" ? field.value({
           field: field,
           state: state
@@ -888,9 +976,9 @@ var inputMapper = function inputMapper(_ref) {
           init: _objectSpread2({
             language: "es",
             selector: "textarea#full-featured",
-            plugins: "print preview importcss searchreplace autolink autosave save directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons code",
+            plugins: "print preview importcss searchreplace autolink autosave save directionality visualblocks visualchars fullscreen image link media template codesample table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons code cita",
             menubar: "file edit view insert format tools table tc help code",
-            toolbar: "undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange formatpainter removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment",
+            toolbar: "undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect btnCita| alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor backcolor casechange formatpainter removeformat | pagebreak | charmap emoticons | fullscreen  preview save print | insertfile image media template link anchor codesample | a11ycheck ltr rtl | showcomments addcomment",
             autosave_ask_before_unload: true,
             autosave_interval: "30s",
             autosave_prefix: "{path}{query}-{id}-",
@@ -909,6 +997,9 @@ var inputMapper = function inputMapper(_ref) {
             contextmenu: "link image imagetools table configurepermanentpen",
             a11y_advanced_options: true,
             image_advtab: true,
+            external_plugins: {
+              'cita': '/plugins/cita/plugin.min.js'
+            },
             file_picker_callback: function (callback, value, meta) {
               imageFilePicker(callback, value, meta);
             },

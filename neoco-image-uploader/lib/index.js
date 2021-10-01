@@ -4,7 +4,7 @@ var React = require('react');
 var styled = require('styled-components');
 var bluejayUi = require('bluejay-ui');
 
-function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+function _interopDefaultLegacy(e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
 function _interopNamespace(e) {
   if (e && e.__esModule) return e;
@@ -160,7 +160,7 @@ function _isNativeReflectConstruct() {
   if (typeof Proxy === "function") return true;
 
   try {
-    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () { }));
     return true;
   } catch (e) {
     return false;
@@ -188,7 +188,7 @@ function _createSuper(Derived) {
 
   return function _createSuperInternal() {
     var Super = _getPrototypeOf(Derived),
-        result;
+      result;
 
     if (hasNativeReflectConstruct) {
       var NewTarget = _getPrototypeOf(this).constructor;
@@ -651,12 +651,12 @@ function toArray(value) {
 function forEach(data, callback) {
   if (data && isFunction(callback)) {
     if (Array.isArray(data) || isNumber(data.length)
-    /* array-like */
+      /* array-like */
     ) {
-        toArray(data).forEach(function (value, key) {
-          callback.call(data, value, key, data);
-        });
-      } else if (isObject(data)) {
+      toArray(data).forEach(function (value, key) {
+        callback.call(data, value, key, data);
+      });
+    } else if (isObject(data)) {
       Object.keys(data).forEach(function (key) {
         callback.call(data, data[key], key, data);
       });
@@ -889,7 +889,7 @@ var onceSupported = function () {
   if (IS_BROWSER) {
     var once = false;
 
-    var listener = function listener() {};
+    var listener = function listener() { };
 
     var options = Object.defineProperty({}, 'once', {
       get: function get() {
@@ -959,7 +959,7 @@ function addListener(element, type, listener) {
   type.trim().split(REGEXP_SPACES).forEach(function (event) {
     if (options.once && !onceSupported) {
       var _element$listeners = element.listeners,
-          listeners = _element$listeners === void 0 ? {} : _element$listeners;
+        listeners = _element$listeners === void 0 ? {} : _element$listeners;
 
       _handler = function handler() {
         delete listeners[event][listener];
@@ -1054,10 +1054,10 @@ function addTimestamp(url) {
 
 function getTransforms(_ref) {
   var rotate = _ref.rotate,
-      scaleX = _ref.scaleX,
-      scaleY = _ref.scaleY,
-      translateX = _ref.translateX,
-      translateY = _ref.translateY;
+    scaleX = _ref.scaleX,
+    scaleY = _ref.scaleY,
+    translateX = _ref.translateX,
+    translateY = _ref.translateY;
   var values = [];
 
   if (isNumber(translateX) && translateX !== 0) {
@@ -1125,7 +1125,7 @@ function getMaxZoomRatio(pointers) {
 
 function getPointer(_ref2, endOnly) {
   var pageX = _ref2.pageX,
-      pageY = _ref2.pageY;
+    pageY = _ref2.pageY;
   var end = {
     endX: pageX,
     endY: pageY
@@ -1147,7 +1147,7 @@ function getPointersCenter(pointers) {
   var count = 0;
   forEach(pointers, function (_ref3) {
     var startX = _ref3.startX,
-        startY = _ref3.startY;
+      startY = _ref3.startY;
     pageX += startX;
     pageY += startY;
     count += 1;
@@ -1169,8 +1169,8 @@ function getPointersCenter(pointers) {
 function getAdjustedSizes(_ref4) // or 'cover'
 {
   var aspectRatio = _ref4.aspectRatio,
-      height = _ref4.height,
-      width = _ref4.width;
+    height = _ref4.height,
+    width = _ref4.width;
   var type = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'contain';
   var isValidWidth = isPositiveNumber(width);
   var isValidHeight = isPositiveNumber(height);
@@ -1202,8 +1202,8 @@ function getAdjustedSizes(_ref4) // or 'cover'
 
 function getRotatedSizes(_ref5) {
   var width = _ref5.width,
-      height = _ref5.height,
-      degree = _ref5.degree;
+    height = _ref5.height,
+    degree = _ref5.degree;
   degree = Math.abs(degree) % 180;
 
   if (degree === 90) {
@@ -1237,31 +1237,31 @@ function getRotatedSizes(_ref5) {
 
 function getSourceCanvas(image, _ref6, _ref7, _ref8) {
   var imageAspectRatio = _ref6.aspectRatio,
-      imageNaturalWidth = _ref6.naturalWidth,
-      imageNaturalHeight = _ref6.naturalHeight,
-      _ref6$rotate = _ref6.rotate,
-      rotate = _ref6$rotate === void 0 ? 0 : _ref6$rotate,
-      _ref6$scaleX = _ref6.scaleX,
-      scaleX = _ref6$scaleX === void 0 ? 1 : _ref6$scaleX,
-      _ref6$scaleY = _ref6.scaleY,
-      scaleY = _ref6$scaleY === void 0 ? 1 : _ref6$scaleY;
+    imageNaturalWidth = _ref6.naturalWidth,
+    imageNaturalHeight = _ref6.naturalHeight,
+    _ref6$rotate = _ref6.rotate,
+    rotate = _ref6$rotate === void 0 ? 0 : _ref6$rotate,
+    _ref6$scaleX = _ref6.scaleX,
+    scaleX = _ref6$scaleX === void 0 ? 1 : _ref6$scaleX,
+    _ref6$scaleY = _ref6.scaleY,
+    scaleY = _ref6$scaleY === void 0 ? 1 : _ref6$scaleY;
   var aspectRatio = _ref7.aspectRatio,
-      naturalWidth = _ref7.naturalWidth,
-      naturalHeight = _ref7.naturalHeight;
+    naturalWidth = _ref7.naturalWidth,
+    naturalHeight = _ref7.naturalHeight;
   var _ref8$fillColor = _ref8.fillColor,
-      fillColor = _ref8$fillColor === void 0 ? 'transparent' : _ref8$fillColor,
-      _ref8$imageSmoothingE = _ref8.imageSmoothingEnabled,
-      imageSmoothingEnabled = _ref8$imageSmoothingE === void 0 ? true : _ref8$imageSmoothingE,
-      _ref8$imageSmoothingQ = _ref8.imageSmoothingQuality,
-      imageSmoothingQuality = _ref8$imageSmoothingQ === void 0 ? 'low' : _ref8$imageSmoothingQ,
-      _ref8$maxWidth = _ref8.maxWidth,
-      maxWidth = _ref8$maxWidth === void 0 ? Infinity : _ref8$maxWidth,
-      _ref8$maxHeight = _ref8.maxHeight,
-      maxHeight = _ref8$maxHeight === void 0 ? Infinity : _ref8$maxHeight,
-      _ref8$minWidth = _ref8.minWidth,
-      minWidth = _ref8$minWidth === void 0 ? 0 : _ref8$minWidth,
-      _ref8$minHeight = _ref8.minHeight,
-      minHeight = _ref8$minHeight === void 0 ? 0 : _ref8$minHeight;
+    fillColor = _ref8$fillColor === void 0 ? 'transparent' : _ref8$fillColor,
+    _ref8$imageSmoothingE = _ref8.imageSmoothingEnabled,
+    imageSmoothingEnabled = _ref8$imageSmoothingE === void 0 ? true : _ref8$imageSmoothingE,
+    _ref8$imageSmoothingQ = _ref8.imageSmoothingQuality,
+    imageSmoothingQuality = _ref8$imageSmoothingQ === void 0 ? 'low' : _ref8$imageSmoothingQ,
+    _ref8$maxWidth = _ref8.maxWidth,
+    maxWidth = _ref8$maxWidth === void 0 ? Infinity : _ref8$maxWidth,
+    _ref8$maxHeight = _ref8.maxHeight,
+    maxHeight = _ref8$maxHeight === void 0 ? Infinity : _ref8$maxHeight,
+    _ref8$minWidth = _ref8.minWidth,
+    minWidth = _ref8$minWidth === void 0 ? 0 : _ref8$minWidth,
+    _ref8$minHeight = _ref8.minHeight,
+    minHeight = _ref8$minHeight === void 0 ? 0 : _ref8$minHeight;
   var canvas = document.createElement('canvas');
   var context = canvas.getContext('2d');
   var maxSizes = getAdjustedSizes({
@@ -1403,16 +1403,16 @@ function resetAndGetOrientation(arrayBuffer) {
         littleEndian = endianness === 0x4949;
 
         if (littleEndian || endianness === 0x4D4D
-        /* bigEndian */
+          /* bigEndian */
         ) {
-            if (dataView.getUint16(tiffOffset + 2, littleEndian) === 0x002A) {
-              var firstIFDOffset = dataView.getUint32(tiffOffset + 4, littleEndian);
+          if (dataView.getUint16(tiffOffset + 2, littleEndian) === 0x002A) {
+            var firstIFDOffset = dataView.getUint32(tiffOffset + 4, littleEndian);
 
-              if (firstIFDOffset >= 0x00000008) {
-                ifdStart = tiffOffset + firstIFDOffset;
-              }
+            if (firstIFDOffset >= 0x00000008) {
+              ifdStart = tiffOffset + firstIFDOffset;
             }
           }
+        }
       }
     }
 
@@ -1427,16 +1427,16 @@ function resetAndGetOrientation(arrayBuffer) {
         _offset = ifdStart + i * 12 + 2;
 
         if (dataView.getUint16(_offset, littleEndian) === 0x0112
-        /* Orientation */
+          /* Orientation */
         ) {
-            // 8 is the offset of the current tag's value
-            _offset += 8; // Get the original orientation value
+          // 8 is the offset of the current tag's value
+          _offset += 8; // Get the original orientation value
 
-            orientation = dataView.getUint16(_offset, littleEndian); // Override the orientation with its default value
+          orientation = dataView.getUint16(_offset, littleEndian); // Override the orientation with its default value
 
-            dataView.setUint16(_offset, 1, littleEndian);
-            break;
-          }
+          dataView.setUint16(_offset, 1, littleEndian);
+          break;
+        }
       }
     }
   } catch (error) {
@@ -1515,9 +1515,9 @@ var render = {
   },
   initContainer: function initContainer() {
     var element = this.element,
-        options = this.options,
-        container = this.container,
-        cropper = this.cropper;
+      options = this.options,
+      container = this.container,
+      cropper = this.cropper;
     var minWidth = Number(options.minContainerWidth);
     var minHeight = Number(options.minContainerHeight);
     addClass(cropper, CLASS_HIDDEN);
@@ -1537,7 +1537,7 @@ var render = {
   // Canvas (image wrapper)
   initCanvas: function initCanvas() {
     var containerData = this.containerData,
-        imageData = this.imageData;
+      imageData = this.imageData;
     var viewMode = this.options.viewMode;
     var rotated = Math.abs(imageData.rotate) % 180 === 90;
     var naturalWidth = rotated ? imageData.naturalHeight : imageData.naturalWidth;
@@ -1578,9 +1578,9 @@ var render = {
   },
   limitCanvas: function limitCanvas(sizeLimited, positionLimited) {
     var options = this.options,
-        containerData = this.containerData,
-        canvasData = this.canvasData,
-        cropBoxData = this.cropBoxData;
+      containerData = this.containerData,
+      canvasData = this.canvasData,
+      cropBoxData = this.cropBoxData;
     var viewMode = options.viewMode;
     var aspectRatio = canvasData.aspectRatio;
     var cropped = this.cropped && cropBoxData;
@@ -1668,7 +1668,7 @@ var render = {
   },
   renderCanvas: function renderCanvas(changed, transformed) {
     var canvasData = this.canvasData,
-        imageData = this.imageData;
+      imageData = this.imageData;
 
     if (transformed) {
       var _getRotatedSizes = getRotatedSizes({
@@ -1676,8 +1676,8 @@ var render = {
         height: imageData.naturalHeight * Math.abs(imageData.scaleY || 1),
         degree: imageData.rotate || 0
       }),
-          naturalWidth = _getRotatedSizes.width,
-          naturalHeight = _getRotatedSizes.height;
+        naturalWidth = _getRotatedSizes.width,
+        naturalHeight = _getRotatedSizes.height;
 
       var width = canvasData.width * (naturalWidth / canvasData.naturalWidth);
       var height = canvasData.height * (naturalHeight / canvasData.naturalHeight);
@@ -1721,7 +1721,7 @@ var render = {
   },
   renderImage: function renderImage(changed) {
     var canvasData = this.canvasData,
-        imageData = this.imageData;
+      imageData = this.imageData;
     var width = imageData.naturalWidth * (canvasData.width / canvasData.naturalWidth);
     var height = imageData.naturalHeight * (canvasData.height / canvasData.naturalHeight);
     assign(imageData, {
@@ -1744,7 +1744,7 @@ var render = {
   },
   initCropBox: function initCropBox() {
     var options = this.options,
-        canvasData = this.canvasData;
+      canvasData = this.canvasData;
     var aspectRatio = options.aspectRatio || options.initialAspectRatio;
     var autoCropArea = Number(options.autoCropArea) || 0.8;
     var cropBoxData = {
@@ -1776,10 +1776,10 @@ var render = {
   },
   limitCropBox: function limitCropBox(sizeLimited, positionLimited) {
     var options = this.options,
-        containerData = this.containerData,
-        canvasData = this.canvasData,
-        cropBoxData = this.cropBoxData,
-        limited = this.limited;
+      containerData = this.containerData,
+      canvasData = this.canvasData,
+      cropBoxData = this.cropBoxData,
+      limited = this.limited;
     var aspectRatio = options.aspectRatio;
 
     if (sizeLimited) {
@@ -1834,8 +1834,8 @@ var render = {
   },
   renderCropBox: function renderCropBox() {
     var options = this.options,
-        containerData = this.containerData,
-        cropBoxData = this.cropBoxData;
+      containerData = this.containerData,
+      cropBoxData = this.cropBoxData;
 
     if (cropBoxData.width > cropBoxData.maxWidth || cropBoxData.width < cropBoxData.minWidth) {
       cropBoxData.left = cropBoxData.oldLeft;
@@ -1883,7 +1883,7 @@ var render = {
 var preview = {
   initPreview: function initPreview() {
     var element = this.element,
-        crossOrigin = this.crossOrigin;
+      crossOrigin = this.crossOrigin;
     var preview = this.options.preview;
     var url = crossOrigin ? this.crossOriginUrl : this.url;
     var alt = element.alt || 'The image to preview';
@@ -1951,12 +1951,12 @@ var preview = {
   },
   preview: function preview() {
     var imageData = this.imageData,
-        canvasData = this.canvasData,
-        cropBoxData = this.cropBoxData;
+      canvasData = this.canvasData,
+      cropBoxData = this.cropBoxData;
     var cropBoxWidth = cropBoxData.width,
-        cropBoxHeight = cropBoxData.height;
+      cropBoxHeight = cropBoxData.height;
     var width = imageData.width,
-        height = imageData.height;
+      height = imageData.height;
     var left = cropBoxData.left - canvasData.left - imageData.left;
     var top = cropBoxData.top - canvasData.top - imageData.top;
 
@@ -2008,8 +2008,8 @@ var preview = {
 var events = {
   bind: function bind() {
     var element = this.element,
-        options = this.options,
-        cropper = this.cropper;
+      options = this.options,
+      cropper = this.cropper;
 
     if (isFunction(options.cropstart)) {
       addListener(element, EVENT_CROP_START, options.cropstart);
@@ -2053,8 +2053,8 @@ var events = {
   },
   unbind: function unbind() {
     var element = this.element,
-        options = this.options,
-        cropper = this.cropper;
+      options = this.options,
+      cropper = this.cropper;
 
     if (isFunction(options.cropstart)) {
       removeListener(element, EVENT_CROP_START, options.cropstart);
@@ -2105,8 +2105,8 @@ var handlers = {
     }
 
     var options = this.options,
-        container = this.container,
-        containerData = this.containerData;
+      container = this.container,
+      containerData = this.containerData;
     var ratioX = container.offsetWidth / containerData.width;
     var ratioY = container.offsetHeight / containerData.height;
     var ratio = Math.abs(ratioX - 1) > Math.abs(ratioY - 1) ? ratioX : ratioY; // Resize when width changed or height changed
@@ -2172,17 +2172,17 @@ var handlers = {
   },
   cropStart: function cropStart(event) {
     var buttons = event.buttons,
-        button = event.button;
+      button = event.button;
 
     if (this.disabled // Handle mouse event and pointer event and ignore touch event
-    || (event.type === 'mousedown' || event.type === 'pointerdown' && event.pointerType === 'mouse') && ( // No primary button (Usually the left button)
-    isNumber(buttons) && buttons !== 1 || isNumber(button) && button !== 0 // Open context menu
-    || event.ctrlKey)) {
+      || (event.type === 'mousedown' || event.type === 'pointerdown' && event.pointerType === 'mouse') && ( // No primary button (Usually the left button)
+        isNumber(buttons) && buttons !== 1 || isNumber(button) && button !== 0 // Open context menu
+        || event.ctrlKey)) {
       return;
     }
 
     var options = this.options,
-        pointers = this.pointers;
+      pointers = this.pointers;
     var action;
 
     if (event.changedTouches) {
@@ -2256,7 +2256,7 @@ var handlers = {
     }
 
     var action = this.action,
-        pointers = this.pointers;
+      pointers = this.pointers;
 
     if (event.changedTouches) {
       forEach(event.changedTouches, function (touch) {
@@ -2291,16 +2291,16 @@ var handlers = {
 var change = {
   change: function change(event) {
     var options = this.options,
-        canvasData = this.canvasData,
-        containerData = this.containerData,
-        cropBoxData = this.cropBoxData,
-        pointers = this.pointers;
+      canvasData = this.canvasData,
+      containerData = this.containerData,
+      cropBoxData = this.cropBoxData,
+      pointers = this.pointers;
     var action = this.action;
     var aspectRatio = options.aspectRatio;
     var left = cropBoxData.left,
-        top = cropBoxData.top,
-        width = cropBoxData.width,
-        height = cropBoxData.height;
+      top = cropBoxData.top,
+      width = cropBoxData.width,
+      height = cropBoxData.height;
     var right = left + width;
     var bottom = top + height;
     var minLeft = 0;
@@ -2878,8 +2878,8 @@ var methods = {
   move: function move(offsetX) {
     var offsetY = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : offsetX;
     var _this$canvasData = this.canvasData,
-        left = _this$canvasData.left,
-        top = _this$canvasData.top;
+      left = _this$canvasData.left,
+      top = _this$canvasData.top;
     return this.moveTo(isUndefined(offsetX) ? offsetX : left + Number(offsetX), isUndefined(offsetY) ? offsetY : top + Number(offsetY));
   },
 
@@ -2943,11 +2943,11 @@ var methods = {
    */
   zoomTo: function zoomTo(ratio, pivot, _originalEvent) {
     var options = this.options,
-        canvasData = this.canvasData;
+      canvasData = this.canvasData;
     var width = canvasData.width,
-        height = canvasData.height,
-        naturalWidth = canvasData.naturalWidth,
-        naturalHeight = canvasData.naturalHeight;
+      height = canvasData.height,
+      naturalWidth = canvasData.naturalWidth,
+      naturalHeight = canvasData.naturalHeight;
     ratio = Number(ratio);
 
     if (ratio >= 0 && this.ready && !this.disabled && options.zoomable) {
@@ -3074,9 +3074,9 @@ var methods = {
   getData: function getData() {
     var rounded = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
     var options = this.options,
-        imageData = this.imageData,
-        canvasData = this.canvasData,
-        cropBoxData = this.cropBoxData;
+      imageData = this.imageData,
+      canvasData = this.canvasData,
+      cropBoxData = this.cropBoxData;
     var data;
 
     if (this.ready && this.cropped) {
@@ -3129,8 +3129,8 @@ var methods = {
    */
   setData: function setData(data) {
     var options = this.options,
-        imageData = this.imageData,
-        canvasData = this.canvasData;
+      imageData = this.imageData,
+      canvasData = this.canvasData;
     var cropBoxData = {};
 
     if (this.ready && !this.disabled && isPlainObject(data)) {
@@ -3332,10 +3332,10 @@ var methods = {
     }
 
     var _this$getData = this.getData(),
-        initialX = _this$getData.x,
-        initialY = _this$getData.y,
-        initialWidth = _this$getData.width,
-        initialHeight = _this$getData.height;
+      initialX = _this$getData.x,
+      initialY = _this$getData.y,
+      initialWidth = _this$getData.width,
+      initialHeight = _this$getData.height;
 
     var ratio = source.width / Math.floor(canvasData.naturalWidth);
 
@@ -3363,8 +3363,8 @@ var methods = {
       width: options.width || (ratio !== 1 ? source.width : initialWidth),
       height: options.height || (ratio !== 1 ? source.height : initialHeight)
     }),
-        width = _getAdjustedSizes.width,
-        height = _getAdjustedSizes.height;
+      width = _getAdjustedSizes.width,
+      height = _getAdjustedSizes.height;
 
     width = Math.min(maxSizes.width, Math.max(minSizes.width, width));
     height = Math.min(maxSizes.height, Math.max(minSizes.height, height));
@@ -3375,8 +3375,8 @@ var methods = {
     context.fillStyle = options.fillColor || 'transparent';
     context.fillRect(0, 0, width, height);
     var _options$imageSmoothi = options.imageSmoothingEnabled,
-        imageSmoothingEnabled = _options$imageSmoothi === void 0 ? true : _options$imageSmoothi,
-        imageSmoothingQuality = options.imageSmoothingQuality;
+      imageSmoothingEnabled = _options$imageSmoothi === void 0 ? true : _options$imageSmoothi,
+      imageSmoothingQuality = options.imageSmoothingQuality;
     context.imageSmoothingEnabled = imageSmoothingEnabled;
 
     if (imageSmoothingQuality) {
@@ -3475,8 +3475,8 @@ var methods = {
    */
   setDragMode: function setDragMode(mode) {
     var options = this.options,
-        dragBox = this.dragBox,
-        face = this.face;
+      dragBox = this.dragBox,
+      face = this.face;
 
     if (this.ready && !this.disabled) {
       var croppable = mode === DRAG_MODE_CROP;
@@ -3572,7 +3572,7 @@ var Cropper = /*#__PURE__*/function () {
       this.url = url;
       this.imageData = {};
       var element = this.element,
-          options = this.options;
+        options = this.options;
 
       if (!options.rotatable && !options.scalable) {
         options.checkOrientation = false;
@@ -3643,7 +3643,7 @@ var Cropper = /*#__PURE__*/function () {
     key: "read",
     value: function read(arrayBuffer) {
       var options = this.options,
-          imageData = this.imageData; // Reset the orientation value to its default value 1
+        imageData = this.imageData; // Reset the orientation value to its default value 1
       // as some iOS browsers will render image with its orientation
 
       var orientation = resetAndGetOrientation(arrayBuffer);
@@ -3677,7 +3677,7 @@ var Cropper = /*#__PURE__*/function () {
     key: "clone",
     value: function clone() {
       var element = this.element,
-          url = this.url;
+        url = this.url;
       var crossOrigin = element.crossOrigin;
       var crossOriginUrl = url;
 
@@ -3775,8 +3775,8 @@ var Cropper = /*#__PURE__*/function () {
       }
 
       var element = this.element,
-          options = this.options,
-          image = this.image; // Create cropper elements
+        options = this.options,
+        image = this.image; // Create cropper elements
 
       var container = element.parentNode;
       var template = document.createElement('div');
@@ -3914,7 +3914,7 @@ var Cropper = /*#__PURE__*/function () {
 assign(Cropper.prototype, render, preview, events, handlers, change, methods);
 
 function styleInject(css, ref) {
-  if ( ref === void 0 ) ref = {};
+  if (ref === void 0) ref = {};
   var insertAt = ref.insertAt;
 
   if (!css || typeof document === 'undefined') { return; }
@@ -3990,7 +3990,7 @@ var ImageCrop = /*#__PURE__*/function (_React$Component) {
     value: function componentDidUpdate(prevProps) {
       if (this.img && !this.cropper) {
         var _this$props$cropMode = this.props.cropMode,
-            cropMode = _this$props$cropMode === void 0 ? "default" : _this$props$cropMode;
+          cropMode = _this$props$cropMode === void 0 ? "default" : _this$props$cropMode;
         this.cropper = new Cropper(this.img, getCropperOptions(cropMode));
       }
 
@@ -4055,10 +4055,10 @@ var ImageCrop = /*#__PURE__*/function (_React$Component) {
       var _this2 = this;
 
       var _this$props = this.props,
-          alt = _this$props.alt,
-          file = _this$props.file,
-          crossOrigin = _this$props.crossOrigin,
-          style = _this$props.style;
+        alt = _this$props.alt,
+        file = _this$props.file,
+        crossOrigin = _this$props.crossOrigin,
+        style = _this$props.style;
       return /*#__PURE__*/React__default['default'].createElement("div", {
         style: style
       }, /*#__PURE__*/React__default['default'].createElement("img", {
@@ -4079,7 +4079,7 @@ var ImageCrop = /*#__PURE__*/function (_React$Component) {
 }(React__default['default'].Component);
 
 function createCommonjsModule(fn, module) {
-	return module = { exports: {} }, fn(module, module.exports), module.exports;
+  return module = { exports: {} }, fn(module, module.exports), module.exports;
 }
 
 /** @license React v16.13.1
@@ -4090,215 +4090,215 @@ function createCommonjsModule(fn, module) {
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-var b="function"===typeof Symbol&&Symbol.for,c=b?Symbol.for("react.element"):60103,d=b?Symbol.for("react.portal"):60106,e=b?Symbol.for("react.fragment"):60107,f=b?Symbol.for("react.strict_mode"):60108,g=b?Symbol.for("react.profiler"):60114,h=b?Symbol.for("react.provider"):60109,k=b?Symbol.for("react.context"):60110,l=b?Symbol.for("react.async_mode"):60111,m=b?Symbol.for("react.concurrent_mode"):60111,n=b?Symbol.for("react.forward_ref"):60112,p=b?Symbol.for("react.suspense"):60113,q=b?
-Symbol.for("react.suspense_list"):60120,r=b?Symbol.for("react.memo"):60115,t=b?Symbol.for("react.lazy"):60116,v=b?Symbol.for("react.block"):60121,w=b?Symbol.for("react.fundamental"):60117,x=b?Symbol.for("react.responder"):60118,y=b?Symbol.for("react.scope"):60119;
-function z(a){if("object"===typeof a&&null!==a){var u=a.$$typeof;switch(u){case c:switch(a=a.type,a){case l:case m:case e:case g:case f:case p:return a;default:switch(a=a&&a.$$typeof,a){case k:case n:case t:case r:case h:return a;default:return u}}case d:return u}}}function A(a){return z(a)===m}var AsyncMode=l;var ConcurrentMode=m;var ContextConsumer=k;var ContextProvider=h;var Element=c;var ForwardRef=n;var Fragment=e;var Lazy=t;var Memo=r;var Portal=d;
-var Profiler=g;var StrictMode=f;var Suspense=p;var isAsyncMode=function(a){return A(a)||z(a)===l};var isConcurrentMode=A;var isContextConsumer=function(a){return z(a)===k};var isContextProvider=function(a){return z(a)===h};var isElement=function(a){return "object"===typeof a&&null!==a&&a.$$typeof===c};var isForwardRef=function(a){return z(a)===n};var isFragment=function(a){return z(a)===e};var isLazy=function(a){return z(a)===t};
-var isMemo=function(a){return z(a)===r};var isPortal=function(a){return z(a)===d};var isProfiler=function(a){return z(a)===g};var isStrictMode=function(a){return z(a)===f};var isSuspense=function(a){return z(a)===p};
-var isValidElementType=function(a){return "string"===typeof a||"function"===typeof a||a===e||a===m||a===g||a===f||a===p||a===q||"object"===typeof a&&null!==a&&(a.$$typeof===t||a.$$typeof===r||a.$$typeof===h||a.$$typeof===k||a.$$typeof===n||a.$$typeof===w||a.$$typeof===x||a.$$typeof===y||a.$$typeof===v)};var typeOf=z;
+var b = "function" === typeof Symbol && Symbol.for, c = b ? Symbol.for("react.element") : 60103, d = b ? Symbol.for("react.portal") : 60106, e = b ? Symbol.for("react.fragment") : 60107, f = b ? Symbol.for("react.strict_mode") : 60108, g = b ? Symbol.for("react.profiler") : 60114, h = b ? Symbol.for("react.provider") : 60109, k = b ? Symbol.for("react.context") : 60110, l = b ? Symbol.for("react.async_mode") : 60111, m = b ? Symbol.for("react.concurrent_mode") : 60111, n = b ? Symbol.for("react.forward_ref") : 60112, p = b ? Symbol.for("react.suspense") : 60113, q = b ?
+  Symbol.for("react.suspense_list") : 60120, r = b ? Symbol.for("react.memo") : 60115, t = b ? Symbol.for("react.lazy") : 60116, v = b ? Symbol.for("react.block") : 60121, w = b ? Symbol.for("react.fundamental") : 60117, x = b ? Symbol.for("react.responder") : 60118, y = b ? Symbol.for("react.scope") : 60119;
+function z(a) { if ("object" === typeof a && null !== a) { var u = a.$$typeof; switch (u) { case c: switch (a = a.type, a) { case l: case m: case e: case g: case f: case p: return a; default: switch (a = a && a.$$typeof, a) { case k: case n: case t: case r: case h: return a; default: return u } }case d: return u } } } function A(a) { return z(a) === m } var AsyncMode = l; var ConcurrentMode = m; var ContextConsumer = k; var ContextProvider = h; var Element = c; var ForwardRef = n; var Fragment = e; var Lazy = t; var Memo = r; var Portal = d;
+var Profiler = g; var StrictMode = f; var Suspense = p; var isAsyncMode = function (a) { return A(a) || z(a) === l }; var isConcurrentMode = A; var isContextConsumer = function (a) { return z(a) === k }; var isContextProvider = function (a) { return z(a) === h }; var isElement = function (a) { return "object" === typeof a && null !== a && a.$$typeof === c }; var isForwardRef = function (a) { return z(a) === n }; var isFragment = function (a) { return z(a) === e }; var isLazy = function (a) { return z(a) === t };
+var isMemo = function (a) { return z(a) === r }; var isPortal = function (a) { return z(a) === d }; var isProfiler = function (a) { return z(a) === g }; var isStrictMode = function (a) { return z(a) === f }; var isSuspense = function (a) { return z(a) === p };
+var isValidElementType = function (a) { return "string" === typeof a || "function" === typeof a || a === e || a === m || a === g || a === f || a === p || a === q || "object" === typeof a && null !== a && (a.$$typeof === t || a.$$typeof === r || a.$$typeof === h || a.$$typeof === k || a.$$typeof === n || a.$$typeof === w || a.$$typeof === x || a.$$typeof === y || a.$$typeof === v) }; var typeOf = z;
 
 var reactIs_production_min = {
-	AsyncMode: AsyncMode,
-	ConcurrentMode: ConcurrentMode,
-	ContextConsumer: ContextConsumer,
-	ContextProvider: ContextProvider,
-	Element: Element,
-	ForwardRef: ForwardRef,
-	Fragment: Fragment,
-	Lazy: Lazy,
-	Memo: Memo,
-	Portal: Portal,
-	Profiler: Profiler,
-	StrictMode: StrictMode,
-	Suspense: Suspense,
-	isAsyncMode: isAsyncMode,
-	isConcurrentMode: isConcurrentMode,
-	isContextConsumer: isContextConsumer,
-	isContextProvider: isContextProvider,
-	isElement: isElement,
-	isForwardRef: isForwardRef,
-	isFragment: isFragment,
-	isLazy: isLazy,
-	isMemo: isMemo,
-	isPortal: isPortal,
-	isProfiler: isProfiler,
-	isStrictMode: isStrictMode,
-	isSuspense: isSuspense,
-	isValidElementType: isValidElementType,
-	typeOf: typeOf
+  AsyncMode: AsyncMode,
+  ConcurrentMode: ConcurrentMode,
+  ContextConsumer: ContextConsumer,
+  ContextProvider: ContextProvider,
+  Element: Element,
+  ForwardRef: ForwardRef,
+  Fragment: Fragment,
+  Lazy: Lazy,
+  Memo: Memo,
+  Portal: Portal,
+  Profiler: Profiler,
+  StrictMode: StrictMode,
+  Suspense: Suspense,
+  isAsyncMode: isAsyncMode,
+  isConcurrentMode: isConcurrentMode,
+  isContextConsumer: isContextConsumer,
+  isContextProvider: isContextProvider,
+  isElement: isElement,
+  isForwardRef: isForwardRef,
+  isFragment: isFragment,
+  isLazy: isLazy,
+  isMemo: isMemo,
+  isPortal: isPortal,
+  isProfiler: isProfiler,
+  isStrictMode: isStrictMode,
+  isSuspense: isSuspense,
+  isValidElementType: isValidElementType,
+  typeOf: typeOf
 };
 
 var reactIs_development = createCommonjsModule(function (module, exports) {
 
 
 
-if (process.env.NODE_ENV !== "production") {
-  (function() {
+  if (process.env.NODE_ENV !== "production") {
+    (function () {
 
-// The Symbol used to tag the ReactElement-like types. If there is no native Symbol
-// nor polyfill, then a plain number is used for performance.
-var hasSymbol = typeof Symbol === 'function' && Symbol.for;
-var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for('react.element') : 0xeac7;
-var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for('react.portal') : 0xeaca;
-var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for('react.fragment') : 0xeacb;
-var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for('react.strict_mode') : 0xeacc;
-var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for('react.profiler') : 0xead2;
-var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for('react.provider') : 0xeacd;
-var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 0xeace; // TODO: We don't use AsyncMode or ConcurrentMode anymore. They were temporary
-// (unstable) APIs that have been removed. Can we remove the symbols?
+      // The Symbol used to tag the ReactElement-like types. If there is no native Symbol
+      // nor polyfill, then a plain number is used for performance.
+      var hasSymbol = typeof Symbol === 'function' && Symbol.for;
+      var REACT_ELEMENT_TYPE = hasSymbol ? Symbol.for('react.element') : 0xeac7;
+      var REACT_PORTAL_TYPE = hasSymbol ? Symbol.for('react.portal') : 0xeaca;
+      var REACT_FRAGMENT_TYPE = hasSymbol ? Symbol.for('react.fragment') : 0xeacb;
+      var REACT_STRICT_MODE_TYPE = hasSymbol ? Symbol.for('react.strict_mode') : 0xeacc;
+      var REACT_PROFILER_TYPE = hasSymbol ? Symbol.for('react.profiler') : 0xead2;
+      var REACT_PROVIDER_TYPE = hasSymbol ? Symbol.for('react.provider') : 0xeacd;
+      var REACT_CONTEXT_TYPE = hasSymbol ? Symbol.for('react.context') : 0xeace; // TODO: We don't use AsyncMode or ConcurrentMode anymore. They were temporary
+      // (unstable) APIs that have been removed. Can we remove the symbols?
 
-var REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for('react.async_mode') : 0xeacf;
-var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for('react.concurrent_mode') : 0xeacf;
-var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for('react.forward_ref') : 0xead0;
-var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for('react.suspense') : 0xead1;
-var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for('react.suspense_list') : 0xead8;
-var REACT_MEMO_TYPE = hasSymbol ? Symbol.for('react.memo') : 0xead3;
-var REACT_LAZY_TYPE = hasSymbol ? Symbol.for('react.lazy') : 0xead4;
-var REACT_BLOCK_TYPE = hasSymbol ? Symbol.for('react.block') : 0xead9;
-var REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for('react.fundamental') : 0xead5;
-var REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for('react.responder') : 0xead6;
-var REACT_SCOPE_TYPE = hasSymbol ? Symbol.for('react.scope') : 0xead7;
+      var REACT_ASYNC_MODE_TYPE = hasSymbol ? Symbol.for('react.async_mode') : 0xeacf;
+      var REACT_CONCURRENT_MODE_TYPE = hasSymbol ? Symbol.for('react.concurrent_mode') : 0xeacf;
+      var REACT_FORWARD_REF_TYPE = hasSymbol ? Symbol.for('react.forward_ref') : 0xead0;
+      var REACT_SUSPENSE_TYPE = hasSymbol ? Symbol.for('react.suspense') : 0xead1;
+      var REACT_SUSPENSE_LIST_TYPE = hasSymbol ? Symbol.for('react.suspense_list') : 0xead8;
+      var REACT_MEMO_TYPE = hasSymbol ? Symbol.for('react.memo') : 0xead3;
+      var REACT_LAZY_TYPE = hasSymbol ? Symbol.for('react.lazy') : 0xead4;
+      var REACT_BLOCK_TYPE = hasSymbol ? Symbol.for('react.block') : 0xead9;
+      var REACT_FUNDAMENTAL_TYPE = hasSymbol ? Symbol.for('react.fundamental') : 0xead5;
+      var REACT_RESPONDER_TYPE = hasSymbol ? Symbol.for('react.responder') : 0xead6;
+      var REACT_SCOPE_TYPE = hasSymbol ? Symbol.for('react.scope') : 0xead7;
 
-function isValidElementType(type) {
-  return typeof type === 'string' || typeof type === 'function' || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
-  type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
-}
+      function isValidElementType(type) {
+        return typeof type === 'string' || typeof type === 'function' || // Note: its typeof might be other than 'symbol' or 'number' if it's a polyfill.
+          type === REACT_FRAGMENT_TYPE || type === REACT_CONCURRENT_MODE_TYPE || type === REACT_PROFILER_TYPE || type === REACT_STRICT_MODE_TYPE || type === REACT_SUSPENSE_TYPE || type === REACT_SUSPENSE_LIST_TYPE || typeof type === 'object' && type !== null && (type.$$typeof === REACT_LAZY_TYPE || type.$$typeof === REACT_MEMO_TYPE || type.$$typeof === REACT_PROVIDER_TYPE || type.$$typeof === REACT_CONTEXT_TYPE || type.$$typeof === REACT_FORWARD_REF_TYPE || type.$$typeof === REACT_FUNDAMENTAL_TYPE || type.$$typeof === REACT_RESPONDER_TYPE || type.$$typeof === REACT_SCOPE_TYPE || type.$$typeof === REACT_BLOCK_TYPE);
+      }
 
-function typeOf(object) {
-  if (typeof object === 'object' && object !== null) {
-    var $$typeof = object.$$typeof;
+      function typeOf(object) {
+        if (typeof object === 'object' && object !== null) {
+          var $$typeof = object.$$typeof;
 
-    switch ($$typeof) {
-      case REACT_ELEMENT_TYPE:
-        var type = object.type;
+          switch ($$typeof) {
+            case REACT_ELEMENT_TYPE:
+              var type = object.type;
 
-        switch (type) {
-          case REACT_ASYNC_MODE_TYPE:
-          case REACT_CONCURRENT_MODE_TYPE:
-          case REACT_FRAGMENT_TYPE:
-          case REACT_PROFILER_TYPE:
-          case REACT_STRICT_MODE_TYPE:
-          case REACT_SUSPENSE_TYPE:
-            return type;
+              switch (type) {
+                case REACT_ASYNC_MODE_TYPE:
+                case REACT_CONCURRENT_MODE_TYPE:
+                case REACT_FRAGMENT_TYPE:
+                case REACT_PROFILER_TYPE:
+                case REACT_STRICT_MODE_TYPE:
+                case REACT_SUSPENSE_TYPE:
+                  return type;
 
-          default:
-            var $$typeofType = type && type.$$typeof;
+                default:
+                  var $$typeofType = type && type.$$typeof;
 
-            switch ($$typeofType) {
-              case REACT_CONTEXT_TYPE:
-              case REACT_FORWARD_REF_TYPE:
-              case REACT_LAZY_TYPE:
-              case REACT_MEMO_TYPE:
-              case REACT_PROVIDER_TYPE:
-                return $$typeofType;
+                  switch ($$typeofType) {
+                    case REACT_CONTEXT_TYPE:
+                    case REACT_FORWARD_REF_TYPE:
+                    case REACT_LAZY_TYPE:
+                    case REACT_MEMO_TYPE:
+                    case REACT_PROVIDER_TYPE:
+                      return $$typeofType;
 
-              default:
-                return $$typeof;
-            }
+                    default:
+                      return $$typeof;
+                  }
 
+              }
+
+            case REACT_PORTAL_TYPE:
+              return $$typeof;
+          }
         }
 
-      case REACT_PORTAL_TYPE:
-        return $$typeof;
-    }
+        return undefined;
+      } // AsyncMode is deprecated along with isAsyncMode
+
+      var AsyncMode = REACT_ASYNC_MODE_TYPE;
+      var ConcurrentMode = REACT_CONCURRENT_MODE_TYPE;
+      var ContextConsumer = REACT_CONTEXT_TYPE;
+      var ContextProvider = REACT_PROVIDER_TYPE;
+      var Element = REACT_ELEMENT_TYPE;
+      var ForwardRef = REACT_FORWARD_REF_TYPE;
+      var Fragment = REACT_FRAGMENT_TYPE;
+      var Lazy = REACT_LAZY_TYPE;
+      var Memo = REACT_MEMO_TYPE;
+      var Portal = REACT_PORTAL_TYPE;
+      var Profiler = REACT_PROFILER_TYPE;
+      var StrictMode = REACT_STRICT_MODE_TYPE;
+      var Suspense = REACT_SUSPENSE_TYPE;
+      var hasWarnedAboutDeprecatedIsAsyncMode = false; // AsyncMode should be deprecated
+
+      function isAsyncMode(object) {
+        {
+          if (!hasWarnedAboutDeprecatedIsAsyncMode) {
+            hasWarnedAboutDeprecatedIsAsyncMode = true; // Using console['warn'] to evade Babel and ESLint
+
+            console['warn']('The ReactIs.isAsyncMode() alias has been deprecated, ' + 'and will be removed in React 17+. Update your code to use ' + 'ReactIs.isConcurrentMode() instead. It has the exact same API.');
+          }
+        }
+
+        return isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
+      }
+      function isConcurrentMode(object) {
+        return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
+      }
+      function isContextConsumer(object) {
+        return typeOf(object) === REACT_CONTEXT_TYPE;
+      }
+      function isContextProvider(object) {
+        return typeOf(object) === REACT_PROVIDER_TYPE;
+      }
+      function isElement(object) {
+        return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
+      }
+      function isForwardRef(object) {
+        return typeOf(object) === REACT_FORWARD_REF_TYPE;
+      }
+      function isFragment(object) {
+        return typeOf(object) === REACT_FRAGMENT_TYPE;
+      }
+      function isLazy(object) {
+        return typeOf(object) === REACT_LAZY_TYPE;
+      }
+      function isMemo(object) {
+        return typeOf(object) === REACT_MEMO_TYPE;
+      }
+      function isPortal(object) {
+        return typeOf(object) === REACT_PORTAL_TYPE;
+      }
+      function isProfiler(object) {
+        return typeOf(object) === REACT_PROFILER_TYPE;
+      }
+      function isStrictMode(object) {
+        return typeOf(object) === REACT_STRICT_MODE_TYPE;
+      }
+      function isSuspense(object) {
+        return typeOf(object) === REACT_SUSPENSE_TYPE;
+      }
+
+      exports.AsyncMode = AsyncMode;
+      exports.ConcurrentMode = ConcurrentMode;
+      exports.ContextConsumer = ContextConsumer;
+      exports.ContextProvider = ContextProvider;
+      exports.Element = Element;
+      exports.ForwardRef = ForwardRef;
+      exports.Fragment = Fragment;
+      exports.Lazy = Lazy;
+      exports.Memo = Memo;
+      exports.Portal = Portal;
+      exports.Profiler = Profiler;
+      exports.StrictMode = StrictMode;
+      exports.Suspense = Suspense;
+      exports.isAsyncMode = isAsyncMode;
+      exports.isConcurrentMode = isConcurrentMode;
+      exports.isContextConsumer = isContextConsumer;
+      exports.isContextProvider = isContextProvider;
+      exports.isElement = isElement;
+      exports.isForwardRef = isForwardRef;
+      exports.isFragment = isFragment;
+      exports.isLazy = isLazy;
+      exports.isMemo = isMemo;
+      exports.isPortal = isPortal;
+      exports.isProfiler = isProfiler;
+      exports.isStrictMode = isStrictMode;
+      exports.isSuspense = isSuspense;
+      exports.isValidElementType = isValidElementType;
+      exports.typeOf = typeOf;
+    })();
   }
-
-  return undefined;
-} // AsyncMode is deprecated along with isAsyncMode
-
-var AsyncMode = REACT_ASYNC_MODE_TYPE;
-var ConcurrentMode = REACT_CONCURRENT_MODE_TYPE;
-var ContextConsumer = REACT_CONTEXT_TYPE;
-var ContextProvider = REACT_PROVIDER_TYPE;
-var Element = REACT_ELEMENT_TYPE;
-var ForwardRef = REACT_FORWARD_REF_TYPE;
-var Fragment = REACT_FRAGMENT_TYPE;
-var Lazy = REACT_LAZY_TYPE;
-var Memo = REACT_MEMO_TYPE;
-var Portal = REACT_PORTAL_TYPE;
-var Profiler = REACT_PROFILER_TYPE;
-var StrictMode = REACT_STRICT_MODE_TYPE;
-var Suspense = REACT_SUSPENSE_TYPE;
-var hasWarnedAboutDeprecatedIsAsyncMode = false; // AsyncMode should be deprecated
-
-function isAsyncMode(object) {
-  {
-    if (!hasWarnedAboutDeprecatedIsAsyncMode) {
-      hasWarnedAboutDeprecatedIsAsyncMode = true; // Using console['warn'] to evade Babel and ESLint
-
-      console['warn']('The ReactIs.isAsyncMode() alias has been deprecated, ' + 'and will be removed in React 17+. Update your code to use ' + 'ReactIs.isConcurrentMode() instead. It has the exact same API.');
-    }
-  }
-
-  return isConcurrentMode(object) || typeOf(object) === REACT_ASYNC_MODE_TYPE;
-}
-function isConcurrentMode(object) {
-  return typeOf(object) === REACT_CONCURRENT_MODE_TYPE;
-}
-function isContextConsumer(object) {
-  return typeOf(object) === REACT_CONTEXT_TYPE;
-}
-function isContextProvider(object) {
-  return typeOf(object) === REACT_PROVIDER_TYPE;
-}
-function isElement(object) {
-  return typeof object === 'object' && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
-}
-function isForwardRef(object) {
-  return typeOf(object) === REACT_FORWARD_REF_TYPE;
-}
-function isFragment(object) {
-  return typeOf(object) === REACT_FRAGMENT_TYPE;
-}
-function isLazy(object) {
-  return typeOf(object) === REACT_LAZY_TYPE;
-}
-function isMemo(object) {
-  return typeOf(object) === REACT_MEMO_TYPE;
-}
-function isPortal(object) {
-  return typeOf(object) === REACT_PORTAL_TYPE;
-}
-function isProfiler(object) {
-  return typeOf(object) === REACT_PROFILER_TYPE;
-}
-function isStrictMode(object) {
-  return typeOf(object) === REACT_STRICT_MODE_TYPE;
-}
-function isSuspense(object) {
-  return typeOf(object) === REACT_SUSPENSE_TYPE;
-}
-
-exports.AsyncMode = AsyncMode;
-exports.ConcurrentMode = ConcurrentMode;
-exports.ContextConsumer = ContextConsumer;
-exports.ContextProvider = ContextProvider;
-exports.Element = Element;
-exports.ForwardRef = ForwardRef;
-exports.Fragment = Fragment;
-exports.Lazy = Lazy;
-exports.Memo = Memo;
-exports.Portal = Portal;
-exports.Profiler = Profiler;
-exports.StrictMode = StrictMode;
-exports.Suspense = Suspense;
-exports.isAsyncMode = isAsyncMode;
-exports.isConcurrentMode = isConcurrentMode;
-exports.isContextConsumer = isContextConsumer;
-exports.isContextProvider = isContextProvider;
-exports.isElement = isElement;
-exports.isForwardRef = isForwardRef;
-exports.isFragment = isFragment;
-exports.isLazy = isLazy;
-exports.isMemo = isMemo;
-exports.isPortal = isPortal;
-exports.isProfiler = isProfiler;
-exports.isStrictMode = isStrictMode;
-exports.isSuspense = isSuspense;
-exports.isValidElementType = isValidElementType;
-exports.typeOf = typeOf;
-  })();
-}
 });
 reactIs_development.AsyncMode;
 reactIs_development.ConcurrentMode;
@@ -4331,11 +4331,11 @@ reactIs_development.typeOf;
 
 var reactIs = createCommonjsModule(function (module) {
 
-if (process.env.NODE_ENV === 'production') {
-  module.exports = reactIs_production_min;
-} else {
-  module.exports = reactIs_development;
-}
+  if (process.env.NODE_ENV === 'production') {
+    module.exports = reactIs_production_min;
+  } else {
+    module.exports = reactIs_development;
+  }
 });
 
 /*
@@ -4349,82 +4349,82 @@ var hasOwnProperty = Object.prototype.hasOwnProperty;
 var propIsEnumerable = Object.prototype.propertyIsEnumerable;
 
 function toObject(val) {
-	if (val === null || val === undefined) {
-		throw new TypeError('Object.assign cannot be called with null or undefined');
-	}
+  if (val === null || val === undefined) {
+    throw new TypeError('Object.assign cannot be called with null or undefined');
+  }
 
-	return Object(val);
+  return Object(val);
 }
 
 function shouldUseNative() {
-	try {
-		if (!Object.assign) {
-			return false;
-		}
+  try {
+    if (!Object.assign) {
+      return false;
+    }
 
-		// Detect buggy property enumeration order in older V8 versions.
+    // Detect buggy property enumeration order in older V8 versions.
 
-		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
-		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
-		test1[5] = 'de';
-		if (Object.getOwnPropertyNames(test1)[0] === '5') {
-			return false;
-		}
+    // https://bugs.chromium.org/p/v8/issues/detail?id=4118
+    var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
+    test1[5] = 'de';
+    if (Object.getOwnPropertyNames(test1)[0] === '5') {
+      return false;
+    }
 
-		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-		var test2 = {};
-		for (var i = 0; i < 10; i++) {
-			test2['_' + String.fromCharCode(i)] = i;
-		}
-		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
-			return test2[n];
-		});
-		if (order2.join('') !== '0123456789') {
-			return false;
-		}
+    // https://bugs.chromium.org/p/v8/issues/detail?id=3056
+    var test2 = {};
+    for (var i = 0; i < 10; i++) {
+      test2['_' + String.fromCharCode(i)] = i;
+    }
+    var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+      return test2[n];
+    });
+    if (order2.join('') !== '0123456789') {
+      return false;
+    }
 
-		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
-		var test3 = {};
-		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
-			test3[letter] = letter;
-		});
-		if (Object.keys(Object.assign({}, test3)).join('') !==
-				'abcdefghijklmnopqrst') {
-			return false;
-		}
+    // https://bugs.chromium.org/p/v8/issues/detail?id=3056
+    var test3 = {};
+    'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+      test3[letter] = letter;
+    });
+    if (Object.keys(Object.assign({}, test3)).join('') !==
+      'abcdefghijklmnopqrst') {
+      return false;
+    }
 
-		return true;
-	} catch (err) {
-		// We don't expect any of the above to throw, but better to be safe.
-		return false;
-	}
+    return true;
+  } catch (err) {
+    // We don't expect any of the above to throw, but better to be safe.
+    return false;
+  }
 }
 
 var objectAssign = shouldUseNative() ? Object.assign : function (target, source) {
-	var from;
-	var to = toObject(target);
-	var symbols;
+  var from;
+  var to = toObject(target);
+  var symbols;
 
-	for (var s = 1; s < arguments.length; s++) {
-		from = Object(arguments[s]);
+  for (var s = 1; s < arguments.length; s++) {
+    from = Object(arguments[s]);
 
-		for (var key in from) {
-			if (hasOwnProperty.call(from, key)) {
-				to[key] = from[key];
-			}
-		}
+    for (var key in from) {
+      if (hasOwnProperty.call(from, key)) {
+        to[key] = from[key];
+      }
+    }
 
-		if (getOwnPropertySymbols) {
-			symbols = getOwnPropertySymbols(from);
-			for (var i = 0; i < symbols.length; i++) {
-				if (propIsEnumerable.call(from, symbols[i])) {
-					to[symbols[i]] = from[symbols[i]];
-				}
-			}
-		}
-	}
+    if (getOwnPropertySymbols) {
+      symbols = getOwnPropertySymbols(from);
+      for (var i = 0; i < symbols.length; i++) {
+        if (propIsEnumerable.call(from, symbols[i])) {
+          to[symbols[i]] = from[symbols[i]];
+        }
+      }
+    }
+  }
 
-	return to;
+  return to;
 };
 
 /**
@@ -4438,14 +4438,14 @@ var ReactPropTypesSecret$1 = 'SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED';
 
 var ReactPropTypesSecret_1 = ReactPropTypesSecret$1;
 
-var printWarning$1 = function() {};
+var printWarning$1 = function () { };
 
 if (process.env.NODE_ENV !== 'production') {
   var ReactPropTypesSecret = ReactPropTypesSecret_1;
   var loggedTypeFailures = {};
   var has$1 = Function.call.bind(Object.prototype.hasOwnProperty);
 
-  printWarning$1 = function(text) {
+  printWarning$1 = function (text) {
     var message = 'Warning: ' + text;
     if (typeof console !== 'undefined') {
       console.error(message);
@@ -4455,7 +4455,7 @@ if (process.env.NODE_ENV !== 'production') {
       // This error was thrown as a convenience so that you can use this stack
       // to find the callsite that caused this warning to fire.
       throw new Error(message);
-    } catch (x) {}
+    } catch (x) { }
   };
 }
 
@@ -4524,7 +4524,7 @@ function checkPropTypes(typeSpecs, values, location, componentName, getStack) {
  *
  * @private
  */
-checkPropTypes.resetWarningCache = function() {
+checkPropTypes.resetWarningCache = function () {
   if (process.env.NODE_ENV !== 'production') {
     loggedTypeFailures = {};
   }
@@ -4533,10 +4533,10 @@ checkPropTypes.resetWarningCache = function() {
 var checkPropTypes_1 = checkPropTypes;
 
 var has = Function.call.bind(Object.prototype.hasOwnProperty);
-var printWarning = function() {};
+var printWarning = function () { };
 
 if (process.env.NODE_ENV !== 'production') {
-  printWarning = function(text) {
+  printWarning = function (text) {
     var message = 'Warning: ' + text;
     if (typeof console !== 'undefined') {
       console.error(message);
@@ -4546,7 +4546,7 @@ if (process.env.NODE_ENV !== 'production') {
       // This error was thrown as a convenience so that you can use this stack
       // to find the callsite that caused this warning to fire.
       throw new Error(message);
-    } catch (x) {}
+    } catch (x) { }
   };
 }
 
@@ -4554,7 +4554,7 @@ function emptyFunctionThatReturnsNull() {
   return null;
 }
 
-var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
+var factoryWithTypeCheckers = function (isValidElement, throwOnDirectAccess) {
   /* global Symbol */
   var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
   var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
@@ -4714,7 +4714,7 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
           ) {
             printWarning(
               'You are manually calling a React.PropTypes validation ' +
-              'function for the `' + propFullName + '` prop on `' + componentName  + '`. This is deprecated ' +
+              'function for the `' + propFullName + '` prop on `' + componentName + '`. This is deprecated ' +
               'and will throw in the standalone `prop-types` package. ' +
               'You may be seeing this warning due to a third-party PropTypes ' +
               'library. See https://fb.me/react-warning-dont-call-proptypes ' + 'for details.'
@@ -4957,7 +4957,7 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
           return new PropTypeError(
             'Invalid ' + location + ' `' + propFullName + '` key `' + key + '` supplied to `' + componentName + '`.' +
             '\nBad object: ' + JSON.stringify(props[propName], null, '  ') +
-            '\nValid keys: ' +  JSON.stringify(Object.keys(shapeTypes), null, '  ')
+            '\nValid keys: ' + JSON.stringify(Object.keys(shapeTypes), null, '  ')
           );
         }
         var error = checker(propValue, key, componentName, location, propFullName + '.' + key, ReactPropTypesSecret_1);
@@ -5109,11 +5109,11 @@ var factoryWithTypeCheckers = function(isValidElement, throwOnDirectAccess) {
   return ReactPropTypes;
 };
 
-function emptyFunction() {}
-function emptyFunctionWithReset() {}
+function emptyFunction() { }
+function emptyFunctionWithReset() { }
 emptyFunctionWithReset.resetWarningCache = emptyFunction;
 
-var factoryWithThrowingShims = function() {
+var factoryWithThrowingShims = function () {
   function shim(props, propName, componentName, location, propFullName, secret) {
     if (secret === ReactPropTypesSecret_1) {
       // It is still safe when called from React.
@@ -5126,7 +5126,7 @@ var factoryWithThrowingShims = function() {
     );
     err.name = 'Invariant Violation';
     throw err;
-  }  shim.isRequired = shim;
+  } shim.isRequired = shim;
   function getShim() {
     return shim;
   }  // Important!
@@ -5162,25 +5162,25 @@ var factoryWithThrowingShims = function() {
 };
 
 var propTypes = createCommonjsModule(function (module) {
-/**
- * Copyright (c) 2013-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
+  /**
+   * Copyright (c) 2013-present, Facebook, Inc.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE file in the root directory of this source tree.
+   */
 
-if (process.env.NODE_ENV !== 'production') {
-  var ReactIs = reactIs;
+  if (process.env.NODE_ENV !== 'production') {
+    var ReactIs = reactIs;
 
-  // By explicitly using `prop-types` you are opting into new development behavior.
-  // http://fb.me/prop-types-in-prod
-  var throwOnDirectAccess = true;
-  module.exports = factoryWithTypeCheckers(ReactIs.isElement, throwOnDirectAccess);
-} else {
-  // By explicitly using `prop-types` you are opting into new production behavior.
-  // http://fb.me/prop-types-in-prod
-  module.exports = factoryWithThrowingShims();
-}
+    // By explicitly using `prop-types` you are opting into new development behavior.
+    // http://fb.me/prop-types-in-prod
+    var throwOnDirectAccess = true;
+    module.exports = factoryWithTypeCheckers(ReactIs.isElement, throwOnDirectAccess);
+  } else {
+    // By explicitly using `prop-types` you are opting into new production behavior.
+    // http://fb.me/prop-types-in-prod
+    module.exports = factoryWithThrowingShims();
+  }
 });
 
 var _jsxFileName = "/Users/brians/git/react-slider/src/components/ReactSlider/ReactSlider.jsx";
@@ -5616,8 +5616,8 @@ var ReactSlider = /*#__PURE__*/function (_React$Component) {
       this.resize();
     }
   } // Keep the internal `value` consistent with an outside `value` if present.
-  // This basically allows the slider to be a controlled component.
-  ;
+    // This basically allows the slider to be a controlled component.
+    ;
 
   ReactSlider.getDerivedStateFromProps = function getDerivedStateFromProps(props, state) {
     var value = sanitizeInValue(props.value);
@@ -5738,11 +5738,11 @@ var ReactSlider = /*#__PURE__*/function (_React$Component) {
 
     return diffPosition;
   } // create the `keydown` handler for the i-th thumb
-  ;
+    ;
 
   _proto.resize = function resize() {
     var slider = this.slider,
-        thumb = this.thumb0;
+      thumb = this.thumb0;
 
     if (!slider || !thumb) {
       return;
@@ -5768,7 +5768,7 @@ var ReactSlider = /*#__PURE__*/function (_React$Component) {
       });
     }
   } // calculates the offset of a thumb in pixels based on its value.
-  ;
+    ;
 
   _proto.calcOffset = function calcOffset(value) {
     var range = this.props.max - this.props.min;
@@ -5780,7 +5780,7 @@ var ReactSlider = /*#__PURE__*/function (_React$Component) {
     var ratio = (value - this.props.min) / range;
     return ratio * this.state.upperBound;
   } // calculates the value corresponding to a given pixel offset, i.e. the inverse of `calcOffset`.
-  ;
+    ;
 
   _proto.calcValue = function calcValue(offset) {
     var ratio = offset / this.state.upperBound;
@@ -5806,8 +5806,8 @@ var ReactSlider = /*#__PURE__*/function (_React$Component) {
     pixelOffset -= this.state.thumbSize / 2;
     return pixelOffset;
   } // Snaps the nearest thumb to the value corresponding to `position`
-  // and calls `callback` with that thumb's index.
-  ;
+    // and calls `callback` with that thumb's index.
+    ;
 
   _proto.forceValueFromPosition = function forceValueFromPosition(position, callback) {
     var _this2 = this;
@@ -5836,7 +5836,7 @@ var ReactSlider = /*#__PURE__*/function (_React$Component) {
       _this2.fireChangeEvent('onChange');
     });
   } // clear all pending timeouts to avoid error messages after unmounting
-  ;
+    ;
 
   _proto.clearPendingResizeTimeouts = function clearPendingResizeTimeouts() {
     do {
@@ -5889,8 +5889,8 @@ var ReactSlider = /*#__PURE__*/function (_React$Component) {
 
   _proto.move = function move(newValue) {
     var _this$state = this.state,
-        index = _this$state.index,
-        value = _this$state.value;
+      index = _this$state.index,
+      value = _this$state.value;
     var length = value.length; // Short circuit if the value is not changing
 
     var oldValue = value[index];
@@ -5908,10 +5908,10 @@ var ReactSlider = /*#__PURE__*/function (_React$Component) {
     // prevent the thumb from getting closer than `minDistance` to the previous or next thumb.
 
     var _this$props = this.props,
-        pearling = _this$props.pearling,
-        max = _this$props.max,
-        min = _this$props.min,
-        minDistance = _this$props.minDistance;
+      pearling = _this$props.pearling,
+      max = _this$props.max,
+      min = _this$props.min,
+      minDistance = _this$props.minDistance;
 
     if (!pearling) {
       if (index > 0) {
@@ -6462,7 +6462,7 @@ var getBase64FromUrl = function getBase64FromUrl(url) {
 };
 var blobToFile = function blobToFile(_ref) {
   var blob = _ref.blob,
-      name = _ref.name;
+    name = _ref.name;
   return new File([blob], name);
 };
 var blobToBase64 = function blobToBase64(blob) {
@@ -6493,16 +6493,16 @@ var mediaQuery = bluejayUi.responsive.mediaQuery;
 
 var CropModal = function CropModal(_ref) {
   var source = _ref.source,
-      _ref$onCroppedImage = _ref.onCroppedImage,
-      onCroppedImage = _ref$onCroppedImage === void 0 ? function () {} : _ref$onCroppedImage,
-      onClose = _ref.onClose,
-      _ref$modalTitle = _ref.modalTitle,
-      modalTitle = _ref$modalTitle === void 0 ? "Editar foto" : _ref$modalTitle;
+    _ref$onCroppedImage = _ref.onCroppedImage,
+    onCroppedImage = _ref$onCroppedImage === void 0 ? function () { } : _ref$onCroppedImage,
+    onClose = _ref.onClose,
+    _ref$modalTitle = _ref.modalTitle,
+    modalTitle = _ref$modalTitle === void 0 ? "Editar foto" : _ref$modalTitle;
 
   var _useState = React.useState(),
-      _useState2 = _slicedToArray(_useState, 2),
-      data = _useState2[0],
-      setData = _useState2[1];
+    _useState2 = _slicedToArray(_useState, 2),
+    data = _useState2[0],
+    setData = _useState2[1];
 
   var inputRef = React.useRef();
   var cropperRef = React.useRef();
@@ -6586,7 +6586,8 @@ var CropModal = function CropModal(_ref) {
   }, "Subir"), /*#__PURE__*/React__default['default'].createElement(CustomButton, {
     type: "button",
     onClick: onLocalCroppedImage
-  }, "Guardar"))), /*#__PURE__*/React__default['default'].createElement(Input, {
+  }, "Guardar"))),
+  /*#__PURE__*/React__default['default'].createElement(Input, {
     "data-testid": "upload-image",
     ref: inputRef,
     onChange: onFileSelected
@@ -6623,27 +6624,27 @@ var getSrc = function getSrc(source) {
 
 var ImageUploader = function ImageUploader(_ref) {
   var _ref$onChange = _ref.onChange,
-      onChange = _ref$onChange === void 0 ? function () {} : _ref$onChange,
-      _ref$canEdit = _ref.canEdit,
-      canEdit = _ref$canEdit === void 0 ? true : _ref$canEdit,
-      _ref$editTitle = _ref.editTitle,
-      editTitle = _ref$editTitle === void 0 ? "CAMBIAR IMAGEN" : _ref$editTitle,
-      _ref$source = _ref.source,
-      source = _ref$source === void 0 ? {} : _ref$source,
-      _ref$containerStyle = _ref.containerStyle,
-      containerStyle = _ref$containerStyle === void 0 ? {} : _ref$containerStyle,
-      _ref$imageFit = _ref.imageFit,
-      imageFit = _ref$imageFit === void 0 ? "cover" : _ref$imageFit;
+    onChange = _ref$onChange === void 0 ? function () { } : _ref$onChange,
+    _ref$canEdit = _ref.canEdit,
+    canEdit = _ref$canEdit === void 0 ? true : _ref$canEdit,
+    _ref$editTitle = _ref.editTitle,
+    editTitle = _ref$editTitle === void 0 ? "CAMBIAR IMAGEN" : _ref$editTitle,
+    _ref$source = _ref.source,
+    source = _ref$source === void 0 ? {} : _ref$source,
+    _ref$containerStyle = _ref.containerStyle,
+    containerStyle = _ref$containerStyle === void 0 ? {} : _ref$containerStyle,
+    _ref$imageFit = _ref.imageFit,
+    imageFit = _ref$imageFit === void 0 ? "cover" : _ref$imageFit;
 
   var _useState = React.useState(false),
-      _useState2 = _slicedToArray(_useState, 2),
-      isEditing = _useState2[0],
-      setIsEditing = _useState2[1];
+    _useState2 = _slicedToArray(_useState, 2),
+    isEditing = _useState2[0],
+    setIsEditing = _useState2[1];
 
   var _useState3 = React.useState(null),
-      _useState4 = _slicedToArray(_useState3, 2),
-      nextImage = _useState4[0],
-      setNextImage = _useState4[1];
+    _useState4 = _slicedToArray(_useState3, 2),
+    nextImage = _useState4[0],
+    setNextImage = _useState4[1];
 
   var image = nextImage || {
     src: getSrc(source)
@@ -6705,7 +6706,7 @@ var ImageContainer = styled__default['default'].div(_templateObject2 || (_templa
 var Image = styled__default['default'].img(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n  width: 100%;\n  height: 100%;\n  min-height: 180px;\n"])));
 var HoverContainer = styled__default['default'].div(_templateObject4 || (_templateObject4 = _taggedTemplateLiteral(["\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  background-color: ", ";\n\n  &:hover .placeholder {\n    display: flex;\n  }\n"])), function (_ref3) {
   var _ref3$hasImage = _ref3.hasImage,
-      hasImage = _ref3$hasImage === void 0 ? false : _ref3$hasImage;
+    hasImage = _ref3$hasImage === void 0 ? false : _ref3$hasImage;
   return hasImage ? "transparent" : "#f0f0f0";
 });
 var ImagePlaceholder = styled__default['default'].div(_templateObject5 || (_templateObject5 = _taggedTemplateLiteral(["\n  display: none;\n  flex-direction: column;\n  align-items: center;\n  justify-content: space-evenly;\n  width: 100%;\n  height: 100%;\n  color: #fff;\n  background: hsla(0, 0%, 55%, 0.55);\n  user-select: none;\n  cursor: pointer;\n  letter-spacing: 1.4px;\n"])));
